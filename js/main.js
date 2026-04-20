@@ -6,8 +6,9 @@
  */
 
 // ==========================================
-// 1. ESTADO GLOBAL
+// 1. ESTADO GLOBAL Y CONFIGURACIÓN
 // ==========================================
+const WHATSAPP_NUMBER = '56929562206';
 let cart = JSON.parse(localStorage.getItem('hs-riders-cart')) || [];
 let currentCategory = 'TODOS';
 
@@ -43,7 +44,10 @@ const DOM = {
 
     // Controles Slider Inicio
     prevBtn: document.getElementById('prev-slide'),
-    nextBtn: document.getElementById('next-slide')
+    nextBtn: document.getElementById('next-slide'),
+    
+    // Botón Checkout
+    checkoutBtn: document.getElementById('checkout-btn')
 };
 
 // ==========================================
@@ -307,7 +311,44 @@ if (DOM.prevBtn && DOM.nextBtn) {
 }
 
 // ==========================================
-// 6. INICIALIZACIÓN
+// 6. CHECKOUT (WHATSAPP BUSINESS)
+// ==========================================
+
+function checkoutWhatsApp() {
+    if (cart.length === 0) {
+        alert('Tu carrito está vacío. Agrega algunos productos antes de finalizar la compra.');
+        return;
+    }
+
+    // 1. Construir el cuerpo del mensaje
+    let message = "🚀 *NUEVO PEDIDO - Hs RIDERS*\n";
+    message += "------------------------------\n";
+    
+    cart.forEach(item => {
+        message += `✅ ${item.quantity}x ${item.name} - CLP$ ${(item.price * item.quantity).toLocaleString('es-CL')}\n`;
+    });
+
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    message += "------------------------------\n";
+    message += `💰 *TOTAL: CLP$ ${total.toLocaleString('es-CL')}*\n`;
+    message += "------------------------------\n";
+    message += "¿Me podrían confirmar disponibilidad y métodos de pago?";
+
+    // 2. Codificar para URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+    // 3. Abrir en pestaña nueva
+    window.open(whatsappUrl, '_blank');
+}
+
+if (DOM.checkoutBtn) {
+    DOM.checkoutBtn.addEventListener('click', checkoutWhatsApp);
+}
+
+// ==========================================
+// 7. INICIALIZACIÓN
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     // Detectar página de catálogo
