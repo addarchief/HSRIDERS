@@ -68,35 +68,49 @@
 }
 
 /* ==========================================
-   3. PANEL LATERAL DEL CARRITO (DRAWER)
+   3. PANELES LATERALES (DRAWERS)
    ========================================== */
 
-/* Contenedor principal del carrito */
-#cart-drawer {
+/* Contenedor base para todos los drawers */
+.side-drawer {
     background: rgba(19, 19, 19, 0.95);
     backdrop-filter: blur(20px);
-    transform: translateX(100%);
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Carrito (Derecha) */
+#cart-drawer {
+    transform: translateX(100%);
+}
+
+/* Menú Móvil (Izquierda) */
+#mobile-menu {
+    transform: translateX(-100%);
+}
+
 /* Overlay sutil de fondo */
-#cart-overlay {
+.overlay-mask {
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s ease;
 }
 
-/* Estado abierto de la web (activado por JS) */
+/* Estados abiertos (activados por JS) */
 body.cart-open #cart-drawer {
     transform: translateX(0);
 }
 
-body.cart-open #cart-overlay {
+body.menu-open #mobile-menu {
+    transform: translateX(0);
+}
+
+body.cart-open #cart-overlay,
+body.menu-open #menu-overlay {
     opacity: 1;
     visibility: visible;
 }
 
-body.cart-open {
+body.cart-open, body.menu-open {
     overflow: hidden; /* Evita el scroll de fondo */
 }
 

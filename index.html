@@ -18,52 +18,19 @@
                 extend: {
                     "colors": {
                         "surface-tint": "#2ae500",
-                        "on-tertiary-fixed": "#1c1b1b",
-                        "outline": "#85967c",
-                        "tertiary-fixed-dim": "#c8c6c5",
-                        "secondary-container": "#484949",
+                        "primary-container": "#39ff14",
                         "surface-dim": "#131313",
-                        "error-container": "#93000a",
-                        "tertiary": "#fdf9f9",
-                        "tertiary-fixed": "#e5e2e1",
-                        "on-primary": "#053900",
-                        "on-background": "#e2e2e2",
-                        "primary-fixed": "#79ff5b",
-                        "on-tertiary-container": "#626161",
-                        "primary": "#efffe3",
-                        "background": "#131313",
                         "surface": "#131313",
-                        "error": "#ffb4ab",
-                        "secondary": "#c6c6c6",
-                        "on-primary-fixed": "#022100",
-                        "inverse-on-surface": "#303030",
+                        "background": "#131313",
                         "on-surface": "#e2e2e2",
-                        "secondary-fixed-dim": "#c6c6c6",
-                        "on-secondary-fixed": "#1a1c1c",
-                        "surface-container-highest": "#353535",
-                        "on-secondary-container": "#b8b8b8",
-                        "surface-container-high": "#2a2a2a",
-                        "inverse-surface": "#e2e2e2",
-                        "surface-container-lowest": "#0e0e0e",
-                        "on-error": "#690005",
-                        "on-primary-container": "#107100",
-                        "outline-variant": "#3c4b35",
-                        "surface-bright": "#393939",
-                        "tertiary-container": "#e0dddc",
-                        "on-primary-fixed-variant": "#095300",
-                        "on-secondary-fixed-variant": "#464747",
-                        "surface-container": "#1f1f1f",
-                        "on-tertiary": "#313030",
-                        "surface-container-low": "#1b1b1b",
-                        "on-error-container": "#ffdad6",
-                        "on-tertiary-fixed-variant": "#474646",
                         "on-surface-variant": "#baccb0",
-                        "primary-fixed-dim": "#2ae500",
-                        "surface-variant": "#353535",
-                        "inverse-primary": "#106e00",
-                        "secondary-fixed": "#e3e2e2",
-                        "on-secondary": "#2f3131",
-                        "primary-container": "#39ff14"
+                        "primary": "#efffe3",
+                        "on-primary": "#053900",
+                        "outline-variant": "#3c4b35",
+                        "surface-container": "#1f1f1f",
+                        "surface-container-low": "#1b1b1b",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container-lowest": "#0e0e0e",
                     },
                     "borderRadius": {
                         "DEFAULT": "0.125rem",
@@ -73,15 +40,13 @@
                     },
                     "fontFamily": {
                         "headline": ["Space Grotesk"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
+                        "body": ["Inter"]
                     }
                 }
             }
         }
     </script>
     
-    <!-- Estilos Adicionales -->
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
@@ -92,6 +57,11 @@
          ========================================== -->
     <nav id="main-nav" class="fixed top-0 w-full z-50 glass-nav">
         <div class="flex justify-between items-center w-full px-6 py-4 max-w-[1440px] mx-auto">
+            <!-- Botón Menú Móvil (Izquierda) -->
+            <button id="menu-btn" class="md:hidden text-neutral-400 hover:text-lime-400 transition-colors p-2">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+
             <!-- Logo -->
             <div class="flex items-center gap-12">
                 <a class="text-2xl font-black italic tracking-tighter text-lime-400 font-headline uppercase" href="#inicio">
@@ -108,15 +78,9 @@
                 </div>
             </div>
 
-            <!-- Acciones (Usuario y Carrito) -->
+            <!-- Acciones (Solo Carrito) -->
             <div class="flex items-center gap-6">
-                <button class="text-neutral-400 hover:text-lime-400 hover:text-glow transition-all duration-300 scale-95 hover:scale-110 active:scale-90 rounded-full p-1">
-                    <span class="material-symbols-outlined">search</span>
-                </button>
-                <button class="text-neutral-400 hover:text-lime-400 hover:text-glow transition-all duration-300 scale-95 hover:scale-110 active:scale-90 rounded-full p-1">
-                    <span class="material-symbols-outlined">person</span>
-                </button>
-                <button id="cart-btn" class="text-neutral-400 hover:text-lime-400 hover:text-glow transition-all duration-300 scale-95 hover:scale-110 active:scale-90 relative rounded-full p-1">
+                <button id="cart-btn" class="text-neutral-400 hover:text-lime-400 hover:text-glow transition-all duration-300 relative rounded-full p-1">
                     <span class="material-symbols-outlined">shopping_cart</span>
                     <span class="absolute -top-1 -right-1 bg-primary-container text-on-primary text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full shopping-cart-count">0</span>
                 </button>
@@ -125,18 +89,13 @@
     </nav>
 
     <main>
-        <!-- ==========================================
-             SECCIÓN HERO (INICIO)
-             ========================================== -->
+        <!-- SECCIÓN HERO -->
         <section id="inicio" class="relative min-h-screen flex items-center overflow-hidden">
-            <!-- Fondo Cinematográfico -->
             <div class="absolute inset-0 z-0">
                 <img class="w-full h-full object-cover object-center" src="img/hero-bg.png" alt="Motorista Hs Riders"/>
                 <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/60 to-transparent"></div>
                 <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
             </div>
-
-            <!-- Contenido Hero -->
             <div class="relative z-10 max-w-[1440px] mx-auto px-6 w-full pt-20">
                 <div class="max-w-2xl">
                     <div class="flex items-center gap-4 mb-6">
@@ -150,23 +109,17 @@
                         Equipamiento de alto rendimiento para el motorista moderno. Fusionando precisión aerodinámica con la durabilidad definitiva.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="#tienda" class="bg-primary-container text-on-primary px-10 py-4 font-headline font-bold uppercase tracking-widest text-sm rounded-lg kinetic-glow transition-all active:scale-95 text-center">
+                        <a href="catalogo.html" class="bg-primary-container text-on-primary px-10 py-4 font-headline font-bold uppercase tracking-widest text-sm rounded-lg kinetic-glow transition-all active:scale-95 text-center">
                             COMPRAR COLECCIÓN
                         </a>
-                        <button class="border border-outline-variant/40 hover:border-primary-container/60 text-white px-10 py-4 font-headline font-bold uppercase tracking-widest text-sm rounded-lg transition-all backdrop-blur-sm">
-                            VER LOOKBOOK
-                        </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ==========================================
-             SECCIÓN TIENDA (NUEVOS LANZAMIENTOS)
-             ========================================== -->
+        <!-- SECCIÓN TIENDA -->
         <section id="tienda" class="bg-surface-container-low py-24">
-            <div class="max-w-[1440px] mx-auto px-6">
-                <!-- Encabezado de Sección -->
+            <div class="max-w-[1440px] mx-auto px-6 text-center lg:text-left">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                     <div>
                         <h2 class="font-headline font-black text-4xl uppercase tracking-tight mb-2">NUEVOS LANZAMIENTOS</h2>
@@ -175,8 +128,6 @@
                             <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                         </a>
                     </div>
-                    
-                    <!-- Controles del Slider -->
                     <div class="flex gap-4">
                         <button id="prev-slide" class="p-4 bg-surface-container-high rounded-full border border-white/5 hover:border-primary-container transition-colors">
                             <span class="material-symbols-outlined">chevron_left</span>
@@ -186,87 +137,66 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- Grid Dinámico de Productos (Inyectado por JS) -->
-                <div id="products-grid" class="flex overflow-x-auto lg:grid lg:grid-cols-4 gap-6 no-scrollbar snap-x scroll-smooth pb-4">
-                    <!-- Los productos se cargan desde main.js -->
-                </div>
+                <div id="products-grid" class="flex overflow-x-auto lg:grid lg:grid-cols-4 gap-6 no-scrollbar snap-x scroll-smooth pb-4"></div>
             </div>
         </section>
 
-        <!-- ==========================================
-             SECCIÓN MANIFIESTO (TECNOLOGÍA)
-             ========================================== -->
+        <!-- OTROS SECCIONES (Abreviado para foco en UI) -->
         <section id="colecciones" class="py-24 overflow-hidden relative">
             <div class="max-w-[1440px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Lado Izquierdo: Imagen Logo -->
                 <div class="relative">
                     <div class="aspect-square rounded-xl overflow-hidden relative z-10 flex items-center justify-center bg-black/40 backdrop-blur-md border border-white/10">
                         <img class="w-full h-full object-contain p-12" src="img/logo-hs-riders.jpg" alt="HS RIDERS Logo"/>
                     </div>
-                    <div class="absolute -top-12 -left-12 w-64 h-64 bg-primary-container/10 blur-[100px] rounded-full"></div>
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border border-white/5 -m-6 rounded-xl"></div>
                 </div>
-
-                <!-- Lado Derecho: Texto -->
                 <div class="space-y-8">
                     <h2 class="font-headline font-black text-5xl uppercase tracking-tighter leading-tight">EL MANIFIESTO <br/><span class="text-lime-400">DEL CARBONO</span></h2>
-                    <p class="text-on-surface-variant text-lg leading-relaxed">
-                        No solo fabricamos equipamiento. Creamos armadura cinética. Cada costura y cada tejido se prueba para asegurar un control total.
-                    </p>
-                    <div class="grid grid-cols-2 gap-8 py-6">
-                        <div>
-                            <span class="font-headline font-black text-3xl block text-white mb-1">0.12s</span>
-                            <span class="text-on-surface-variant text-xs uppercase tracking-widest">RESPUESTA AL IMPACTO</span>
-                        </div>
-                        <div>
-                            <span class="font-headline font-black text-3xl block text-white mb-1">-40%</span>
-                            <span class="text-on-surface-variant text-xs uppercase tracking-widest">REDUCCIÓN DE ARRASTRE</span>
-                        </div>
-                    </div>
-                    <button class="group flex items-center gap-4 text-primary-container font-headline font-bold uppercase tracking-widest text-sm">
-                        CONOCE NUESTRA TECNOLOGÍA 
-                        <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
-                    </button>
+                    <p class="text-on-surface-variant text-lg leading-relaxed">No solo fabricamos equipamiento. Creamos armadura cinética.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ==========================================
-             SECCIÓN NOSOTROS (VALORES)
-             ========================================== -->
         <section id="nosotros" class="bg-surface-container-lowest py-24">
-            <div class="max-w-[1440px] mx-auto px-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Valor 1 -->
-                    <div class="bg-surface-container p-12 rounded-lg border border-white/5 hover:border-primary-container/20 transition-all">
-                        <span class="material-symbols-outlined text-lime-400 text-4xl mb-6">speed</span>
-                        <h3 class="font-headline font-bold text-xl uppercase mb-4">ENVÍO EXPRESS</h3>
-                        <p class="text-on-surface-variant">Entrega global rápida en menos de 72 horas para que nunca dejes de rodar.</p>
-                    </div>
-                    <!-- Valor 2 -->
-                    <div class="bg-surface-container p-12 rounded-lg border border-white/5 hover:border-primary-container/20 transition-all">
-                        <span class="material-symbols-outlined text-lime-400 text-4xl mb-6">shield</span>
-                        <h3 class="font-headline font-bold text-xl uppercase mb-4">GARANTÍA TOTAL</h3>
-                        <p class="text-on-surface-variant">Nuestro equipo está hecho para la pista. Si te falla, lo reemplazamos sin preguntas.</p>
-                    </div>
-                    <!-- Valor 3 -->
-                    <div class="bg-surface-container p-12 rounded-lg border border-white/5 hover:border-primary-container/20 transition-all">
-                        <span class="material-symbols-outlined text-lime-400 text-4xl mb-6">published_with_changes</span>
-                        <h3 class="font-headline font-bold text-xl uppercase mb-4">AJUSTE PERFECTO</h3>
-                        <p class="text-on-surface-variant">Devoluciones gratuitas en 30 días para asegurar tu comodidad absoluta.</p>
-                    </div>
+            <div class="max-w-[1440px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <div class="bg-surface-container p-12 rounded-lg border border-white/5">
+                    <span class="material-symbols-outlined text-lime-400 text-4xl mb-6">speed</span>
+                    <h3 class="font-headline font-bold text-xl mb-4">ENVÍO EXPRESS</h3>
+                </div>
+                <div class="bg-surface-container p-12 rounded-lg border border-white/5">
+                    <span class="material-symbols-outlined text-lime-400 text-4xl mb-6">shield</span>
+                    <h3 class="font-headline font-bold text-xl mb-4">GARANTÍA TOTAL</h3>
+                </div>
+                <div class="bg-surface-container p-12 rounded-lg border border-white/5">
+                    <span class="material-symbols-outlined text-lime-400 text-4xl mb-6">published_with_changes</span>
+                    <h3 class="font-headline font-bold text-xl mb-4">AJUSTE PERFECTO</h3>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- ==========================================
-         PANEL LATERAL DEL CARRITO (DRAWER)
+         PANEL MENÚ MÓVIL (IZQUIERDA)
          ========================================== -->
-    <div id="cart-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"></div>
-    <div id="cart-drawer" class="fixed top-0 right-0 w-full max-w-md h-full z-[70] flex flex-col shadow-2xl border-l border-white/10">
-        <!-- Header del Carrito -->
+    <div id="menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] overlay-mask"></div>
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full max-w-[280px] h-full z-[70] flex flex-col side-drawer shadow-2xl border-r border-white/10">
+        <div class="p-6 border-b border-white/5 flex justify-between items-center">
+            <span class="text-xl font-black italic text-lime-400 font-headline uppercase">MENÚ</span>
+            <button id="close-menu" class="p-2 hover:bg-white/5 rounded-full transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="flex-1 p-6 flex flex-col gap-6">
+            <a class="nav-link text-white font-headline font-bold uppercase tracking-widest text-lg" href="#inicio">Inicio</a>
+            <a class="nav-link text-white font-headline font-bold uppercase tracking-widest text-lg" href="#tienda">Tienda</a>
+            <a class="nav-link text-lime-400 font-headline font-bold uppercase tracking-widest text-lg" href="catalogo.html">Catálogo</a>
+            <a class="nav-link text-white font-headline font-bold uppercase tracking-widest text-lg" href="#colecciones">Colecciones</a>
+            <a class="nav-link text-white font-headline font-bold uppercase tracking-widest text-lg" href="#nosotros">Nosotros</a>
+        </div>
+    </div>
+
+    <!-- PANEL CARRITO (DERECHA) -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] overlay-mask"></div>
+    <div id="cart-drawer" class="fixed top-0 right-0 w-full max-w-md h-full z-[70] flex flex-col side-drawer shadow-2xl border-l border-white/10">
         <div class="p-6 border-b border-white/5 flex justify-between items-center bg-surface">
             <div class="flex items-center gap-3">
                 <span class="material-symbols-outlined text-lime-400">shopping_bag</span>
@@ -276,59 +206,24 @@
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
-
-        <!-- Lista de Productos (Inyectada por JS) -->
-        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-6">
-            <!-- El contenido vacío por defecto -->
-            <div class="flex flex-col items-center justify-center h-full text-center space-y-4 opacity-50">
-                <span class="material-symbols-outlined text-6xl">inventory_2</span>
-                <p class="font-headline font-bold uppercase tracking-widest text-sm">Tu armadura está incompleta</p>
-                <button onclick="toggleCart()" class="text-lime-400 text-xs font-bold uppercase tracking-widest hover:underline">Empezar a comprar</button>
-            </div>
-        </div>
-
-        <!-- Footer del Carrito (Subtotal y Checkout) -->
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-6"></div>
         <div class="p-6 border-t border-white/5 bg-surface-container-lowest space-y-4">
             <div class="flex justify-between items-end">
                 <span class="text-on-surface-variant text-sm font-bold uppercase tracking-widest">Subtotal</span>
                 <span id="cart-total" class="font-headline font-black text-2xl text-lime-400">CLP$ 0</span>
             </div>
-            <p class="text-[10px] text-on-surface-variant uppercase tracking-widest leading-relaxed">
-                Impuestos y envío calculados al finalizar la compra.
-            </p>
-            <button class="w-full bg-primary-container text-on-primary py-5 font-headline font-black uppercase tracking-widest text-sm rounded-lg kinetic-glow transition-all active:scale-[0.98]">
+            <button class="w-full bg-primary-container text-on-primary py-5 font-headline font-black uppercase tracking-widest text-sm rounded-lg kinetic-glow">
                 Finalizar Compra
             </button>
         </div>
     </div>
 
-    <!-- ==========================================
-         FOOTER DE LA PÁGINA
-         ========================================== -->
+    <!-- FOOTER -->
     <footer class="bg-[#0E0E0E] w-full py-16 border-t border-neutral-900">
         <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8">
-            <!-- Branding -->
             <div class="flex flex-col items-center md:items-start gap-4">
                 <span class="text-xl font-black text-white uppercase italic tracking-tighter">Hs RIDERS</span>
                 <p class="font-headline text-[12px] tracking-widest uppercase text-neutral-500">© 2024 Hs RIDERS. DISEÑADO PARA LA VELOCIDAD.</p>
-            </div>
-            
-            <!-- Links Rápidos -->
-            <div class="flex flex-wrap justify-center gap-8">
-                <a class="font-headline text-[12px] tracking-widest uppercase text-neutral-500 hover:text-lime-400 transition-colors" href="#">Privacidad</a>
-                <a class="font-headline text-[12px] tracking-widest uppercase text-neutral-500 hover:text-lime-400 transition-colors" href="#">Términos</a>
-                <a class="font-headline text-[12px] tracking-widest uppercase text-neutral-500 hover:text-lime-400 transition-colors" href="#">Envíos</a>
-                <a class="font-headline text-[12px] tracking-widest uppercase text-neutral-500 hover:text-lime-400 transition-colors" href="#">Soporte</a>
-            </div>
-
-            <!-- Social -->
-            <div class="flex gap-4">
-                <a class="w-10 h-10 flex items-center justify-center rounded-full border border-white/10 hover:border-lime-400 text-white transition-all" href="#">
-                    <span class="material-symbols-outlined text-sm">share</span>
-                </a>
-                <a class="w-10 h-10 flex items-center justify-center rounded-full border border-white/10 hover:border-lime-400 text-white transition-all" href="#">
-                    <span class="material-symbols-outlined text-sm">mail</span>
-                </a>
             </div>
         </div>
     </footer>

@@ -19,7 +19,7 @@ const DOM = {
     nav: document.getElementById('main-nav'),
     navLinks: document.querySelectorAll('.nav-link'),
     sections: document.querySelectorAll('section[id]'),
-    
+
     // Carrito
     cartBtn: document.getElementById('cart-btn'),
     cartDrawer: document.getElementById('cart-drawer'),
@@ -28,13 +28,19 @@ const DOM = {
     cartItemsContainer: document.getElementById('cart-items'),
     cartTotalElement: document.getElementById('cart-total'),
     cartCountIndicators: document.querySelectorAll('.shopping-cart-count'),
-    
+
     // Contenedores de Productos (Landing e Index)
     productsGrid: document.getElementById('products-grid'), // Slider inicio
     catalogGrid: document.getElementById('catalog-grid'),   // Grid catálogo
     filterButtons: document.querySelectorAll('.filter-btn'),
     noResults: document.getElementById('no-results'),
-    
+
+    // Menú Móvil
+    menuBtn: document.getElementById('menu-btn'),
+    mobileMenu: document.getElementById('mobile-menu'),
+    menuOverlay: document.getElementById('menu-overlay'),
+    closeMenuBtn: document.getElementById('close-menu'),
+
     // Controles Slider Inicio
     prevBtn: document.getElementById('prev-slide'),
     nextBtn: document.getElementById('next-slide')
@@ -89,7 +95,7 @@ function updateActiveNavLink(id) {
 DOM.navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
         const href = link.getAttribute('href');
-        
+
         // Si es un enlace a otra página (como catalogo.html), permitimos el comportamiento normal
         if (!href.startsWith('#') && !href.startsWith(window.location.pathname + '#')) {
             return;
@@ -101,26 +107,43 @@ DOM.navLinks.forEach(link => {
         const section = document.getElementById(id);
         if (section) {
             e.preventDefault();
+
+            // Cerrar menú móvil si está abierto al navegar
+            if (document.body.classList.contains('menu-open')) toggleMobileMenu();
+
             window.scrollTo({
                 top: section.offsetTop - 80,
                 behavior: 'smooth'
             });
-            // Cerrar menú móvil si existiera en el futuro
         }
     });
 });
 
 // ==========================================
-// 4. LÓGICA DEL CARRITO (GLOBAL)
+// 4. LÓGICA DE PANELES (MÓVIL Y CARRITO)
 // ==========================================
 
+// --- Carrito ---
 function toggleCart() {
     document.body.classList.toggle('cart-open');
+    // Cerrar menú móvil si se abre el carrito
+    if (document.body.classList.contains('menu-open')) toggleMobileMenu();
 }
 
 if (DOM.cartBtn) DOM.cartBtn.addEventListener('click', toggleCart);
 if (DOM.closeCartBtn) DOM.closeCartBtn.addEventListener('click', toggleCart);
 if (DOM.cartOverlay) DOM.cartOverlay.addEventListener('click', toggleCart);
+
+// --- Menú Móvil ---
+function toggleMobileMenu() {
+    document.body.classList.toggle('menu-open');
+    // Cerrar carrito si se abre el menú
+    if (document.body.classList.contains('cart-open')) toggleCart();
+}
+
+if (DOM.menuBtn) DOM.menuBtn.addEventListener('click', toggleMobileMenu);
+if (DOM.closeMenuBtn) DOM.closeMenuBtn.addEventListener('click', toggleMobileMenu);
+if (DOM.menuOverlay) DOM.menuOverlay.addEventListener('click', toggleMobileMenu);
 
 function addToCart(productId) {
     const product = PRODUCTS.find(p => p.id === productId);
@@ -216,7 +239,7 @@ function renderCart() {
 function getProductHTML(product, isGrid = false) {
     const animationClass = isGrid ? 'cart-item-anim' : '';
     const containerWidth = isGrid ? '' : 'min-w-[280px] lg:min-w-0 snap-start';
-    
+
     return `
         <div class="group ${containerWidth} ${animationClass}">
             <div class="relative bg-white/5 rounded-2xl overflow-hidden aspect-[4/5] mb-6 border border-white/5 group-hover:border-primary-container/20 transition-all duration-500">
@@ -252,8 +275,8 @@ function renderHomeProducts() {
 function renderCatalogGrid() {
     if (!DOM.catalogGrid) return;
 
-    const filtered = currentCategory === 'TODOS' 
-        ? PRODUCTS 
+    const filtered = currentCategory === 'TODOS'
+        ? PRODUCTS
         : PRODUCTS.filter(p => p.category.toUpperCase().includes(currentCategory));
 
     if (filtered.length === 0) {
@@ -291,10 +314,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.body.classList.contains('catalog-page')) {
         DOM.nav.classList.add('nav-scrolled');
     }
-    
+
     renderHomeProducts();
     renderCatalogGrid();
     renderCart();
-    
+
     console.log('🏁 HS RIDERS - Unificado y Operativo');
 });
