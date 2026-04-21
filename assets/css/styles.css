@@ -138,3 +138,58 @@ body.cart-open, body.menu-open {
 #products-grid > div {
     scroll-snap-align: start;
 }
+
+/* ==========================================
+   5. MICRO-INTERACCIONES Y CARGA
+   ========================================== */
+
+/* Salto del marcador del carrito */
+@keyframes pop-bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); box-shadow: 0 0 15px rgba(57, 255, 20, 0.5); }
+    100% { transform: scale(1); }
+}
+
+.animate-pop {
+    animation: pop-bounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Revelado suave (Scroll Reveal) */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-item.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Sistema de Skeletons (Carga) */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, 
+        rgba(255,255,255,0.03) 25%, 
+        rgba(255,255,255,0.08) 50%, 
+        rgba(255,255,255,0.03) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear;
+    border-radius: 8px;
+}
+
+/* Transición de Imagen */
+.img-loading {
+    opacity: 0;
+    filter: blur(10px);
+    transition: opacity 1s ease, filter 1s ease;
+}
+
+.img-loaded {
+    opacity: 1;
+    filter: blur(0);
+}

@@ -149,6 +149,15 @@ if (DOM.menuBtn) DOM.menuBtn.addEventListener('click', toggleMobileMenu);
 if (DOM.closeMenuBtn) DOM.closeMenuBtn.addEventListener('click', toggleMobileMenu);
 if (DOM.menuOverlay) DOM.menuOverlay.addEventListener('click', toggleMobileMenu);
 
+// --- Micro-animaciones de UI ---
+function animateCartBadge() {
+    DOM.cartCountIndicators.forEach(el => {
+        el.classList.remove('animate-pop');
+        void el.offsetWidth; // Force reflow
+        el.classList.add('animate-pop');
+    });
+}
+
 function addToCart(productId) {
     const product = PRODUCTS.find(p => p.id === productId);
     if (!product) return;
@@ -187,6 +196,9 @@ function saveCart() {
 function renderCart() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     DOM.cartCountIndicators.forEach(el => el.textContent = totalItems);
+    
+    // Disparar animación de feedback
+    if (totalItems > 0) animateCartBadge();
 
     const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     if (DOM.cartTotalElement) {
@@ -241,15 +253,17 @@ function renderCart() {
 
 // Plantilla única para tarjetas de producto
 function getProductHTML(product, isGrid = false) {
-    const animationClass = isGrid ? 'cart-item-anim' : '';
+    const animationClass = 'reveal-item'; // Todos se revelan suavemente
     const containerWidth = isGrid ? '' : 'min-w-[280px] lg:min-w-0 snap-start';
 
     return `
-        <div class="group ${containerWidth} ${animationClass}">
-            <div class="relative bg-white/5 rounded-2xl overflow-hidden aspect-[4/5] mb-6 border border-white/5 group-hover:border-primary-container/20 transition-all duration-500">
-                <img class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-700" 
+        <div class="group ${containerWidth} ${animationClass} bg-surface-container rounded-2xl overflow-hidden border border-white/5 group-hover:border-primary-container/20 transition-all duration-500">
+            <div class="relative aspect-[4/5] bg-[#1a1a1a] flex items-center justify-center skeleton">
+                <img class="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-700 img-loading" 
                      src="${product.image}" 
-                     alt="${product.name}"/>
+                     alt="${product.name}"
+                     onload="this.classList.add('img-loaded'); this.parentElement.classList.remove('skeleton')"
+                     loading="lazy"/>
                 ${product.tag ? `<div class="absolute top-4 left-4 bg-primary-container text-on-primary px-3 py-1 font-headline font-black text-[10px] uppercase tracking-widest rounded-sm">${product.tag}</div>` : ''}
                 <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                     <button onclick="addToCart(${product.id})" class="w-full bg-primary-container text-on-primary py-4 font-headline font-bold uppercase text-xs tracking-widest kinetic-glow rounded-xl shadow-xl shadow-lime-400/5">
@@ -257,12 +271,14 @@ function getProductHTML(product, isGrid = false) {
                     </button>
                 </div>
             </div>
-            <div class="px-2">
-                <div class="flex justify-between items-start mb-1">
-                    <h3 class="font-headline font-black uppercase tracking-tight text-lg leading-none">${product.name}</h3>
-                    <p class="font-headline font-black text-lime-400 text-lg">CLP$ ${product.price ? product.price.toLocaleString('es-CL') : 'N/A'}</p>
+            <div class="p-5">
+                <div class="px-2">
+                    <div class="flex justify-between items-start mb-1">
+                        <h3 class="font-headline font-black uppercase tracking-tight text-lg leading-none">${product.name}</h3>
+                        <p class="font-headline font-black text-lime-400 text-lg">CLP$ ${product.price ? product.price.toLocaleString('es-CL') : 'N/A'}</p>
+                    </div>
+                    <p class="text-on-surface-variant text-[10px] font-label uppercase tracking-widest opacity-60">${product.category}</p>
                 </div>
-                <p class="text-on-surface-variant text-[10px] font-label uppercase tracking-widest opacity-60">${product.category}</p>
             </div>
         </div>
     `;
@@ -348,17 +364,45 @@ if (DOM.checkoutBtn) {
 }
 
 // ==========================================
-// 7. INICIALIZACIÓN
+// 7. INICIALIZACIÓN Y ANIMACIONES
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Detectar página de catálogo
+    // Detectar página y renderizar
     if (document.body.classList.contains('catalog-page')) {
         DOM.nav.classList.add('nav-scrolled');
+        renderCatalogGrid();
+    } else {
+        renderHomeProducts();
     }
 
-    renderHomeProducts();
-    renderCatalogGrid();
     renderCart();
+
+    // --- Revelado Suave al Scroll (General) ---
+    const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, revealOptions);
+
+    // Observar elementos existentes y futuros
+    const observeItems = () => {
+        document.querySelectorAll('.reveal-item:not(.revealed)').forEach(el => revealObserver.observe(el));
+    };
+    
+    // Ejecutar observación inicial y tras cambios en el DOM
+    observeItems();
+    
+    // Observer para cambios en el grid de productos (filtros)
+    if (DOM.catalogGrid) {
+        new MutationObserver(observeItems).observe(DOM.catalogGrid, { childList: true });
+    }
+    if (DOM.productsGrid) {
+        new MutationObserver(observeItems).observe(DOM.productsGrid, { childList: true });
+    }
 
     console.log('🏁 HS RIDERS - Unificado y Operativo');
 });
